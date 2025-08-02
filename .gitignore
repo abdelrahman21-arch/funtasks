@@ -4,6 +4,8 @@
 .env.production.local
 .env.local
 .vscode/
+package-locks.json
+package.json
 /dist
 /node_modules
 /build
