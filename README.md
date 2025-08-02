@@ -1,4 +1,4 @@
-Here's a comprehensive `README.md` file that documents your NestJS project, including:
+Here's a comprehensive `README.md` file that documents this NestJS project, including:
 
 * Project overview
 * JWT authentication
