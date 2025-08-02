@@ -1,4 +1,5 @@
-import { Column, Entity, Generated, PrimaryGeneratedColumn } from "typeorm";
+import { EventEntity } from "../../../events/entities/events.entities";
+import { Column, Entity, Generated, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 /**
  * User entity representing the users table in the database.
@@ -29,5 +30,11 @@ email: string;
    */
  @Column({ type: 'varchar', length: 255 })
 password: string;
+
+/**
+ * Start Of Relations
+ */
+@OneToMany(() => EventEntity, (event) => event.user)
+events: Event[];
 
 }

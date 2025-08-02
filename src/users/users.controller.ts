@@ -1,8 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginDto } from './dtos/login.dto';
 import { UsersService } from './users.service';
-import { ApiCreatedResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { EventResponseDto } from 'src/events/dtos/events-response.dto';
 
 /**
  * Controller responsible for user registration and login routes.
@@ -33,5 +34,18 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Returns JWT token' })
   login(@Body() loginDto: LoginDto) {
     return this.usersService.login(loginDto);
+  }
+
+    /**
+   * Returns all events associated with a given user.
+   * @param userId - ID of the user.
+   * @returns Array of events.
+   */
+  @Get(':userId/events')
+  @ApiOperation({ summary: 'Get all events for a user by user ID' })
+  @ApiParam({ name: 'userId', type: String })
+  @ApiOkResponse({ description: 'List of user events', type: [Event] })
+  getByUser(@Param('userId', ParseUUIDPipe) userId: string): Promise<EventResponseDto[]> {
+    return this.usersService.getEventsByUser(userId);
   }
 }
